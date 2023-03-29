@@ -16,11 +16,10 @@ aws dynamodb create-table \
     --attribute-definitions \
         AttributeName=Artist,AttributeType=S \
         AttributeName=SongTitle,AttributeType=S \
-        AttributeName=rating, AtributeType=Float\
+        AttributeName=rating, AtributeType=N\
     --key-schema \
         AttributeName=Artist,KeyType=HASH \
         AttributeName=SongTitle,KeyType=RANGE \
-        AttributeName=rating, KeyType=RANGE\
     --provisioned-throughput \
         ReadCapacityUnits=10,WriteCapacityUnits=5
 ```
@@ -70,13 +69,24 @@ aws dynamodb update-table \
 aws dynamodb update-table \
     --table-name Music \
     --attribute-definitions\
-        AttributeName=SongTitle,AttributeType=S \
-        AttributeName=SongYear,AttributeType=S \
+        AttributeName=rating, AtributeType=N\
     --global-secondary-index-updates \
         "[{\"Create\":{\"IndexName\": \"SongTitleYear-index\",\"KeySchema\":[{\"AttributeName\":\"SongTitle\",\"KeyType\":\"HASH\"}, {\"AttributeName\":\"SongYear\",\"KeyType\":\"RANGE\"}], \
         \"ProvisionedThroughput\": {\"ReadCapacityUnits\": 10, \"WriteCapacityUnits\": 5      },\"Projection\":{\"ProjectionType\":\"ALL\"}}}]"
 ```
+---------
+- Criar um index global secundário baseado na nota.
 
+```
+aws dynamodb update-table \
+    --table-name Music \
+    --attribute-definitions\
+        AttributeName=rating, AtributeType=N\        
+    --global-secondary-index-updates \
+        "[{\"Create\":{\"IndexName\": \"SongTitleYear-index\",\"KeySchema\":[{\"AttributeName\":\"rating\",\"KeyType\":\"HASH\"}],\
+        \"ProvisionedThroughput\": {\"ReadCapacityUnits\": 10, \"WriteCapacityUnits\": 5      },\"Projection\":{\"ProjectionType\":\"ALL\"}}}]"
+```
+-------
 - Pesquisar item por artista
 
 ```
