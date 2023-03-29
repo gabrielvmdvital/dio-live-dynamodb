@@ -83,7 +83,7 @@ aws dynamodb update-table \
     --attribute-definitions\
         AttributeName=rating, AtributeType=N\        
     --global-secondary-index-updates \
-        "[{\"Create\":{\"IndexName\": \"SongTitleYear-index\",\"KeySchema\":[{\"AttributeName\":\"rating\",\"KeyType\":\"HASH\"}],\
+        "[{\"Create\":{\"IndexName\": \"Rating-index\",\"KeySchema\":[{\"AttributeName\":\"rating\",\"KeyType\":\"HASH\"}],\
         \"ProvisionedThroughput\": {\"ReadCapacityUnits\": 10, \"WriteCapacityUnits\": 5      },\"Projection\":{\"ProjectionType\":\"ALL\"}}}]"
 ```
 -------
