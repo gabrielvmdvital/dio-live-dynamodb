@@ -74,7 +74,6 @@ aws dynamodb update-table \
         "[{\"Create\":{\"IndexName\": \"SongTitleYear-index\",\"KeySchema\":[{\"AttributeName\":\"SongTitle\",\"KeyType\":\"HASH\"}, {\"AttributeName\":\"SongYear\",\"KeyType\":\"RANGE\"}], \
         \"ProvisionedThroughput\": {\"ReadCapacityUnits\": 10, \"WriteCapacityUnits\": 5      },\"Projection\":{\"ProjectionType\":\"ALL\"}}}]"
 ```
----------
 - Criar um index global secundário baseado na nota.
 
 ```
@@ -86,7 +85,7 @@ aws dynamodb update-table \
         "[{\"Create\":{\"IndexName\": \"Rating-index\",\"KeySchema\":[{\"AttributeName\":\"rating\",\"KeyType\":\"HASH\"}],\
         \"ProvisionedThroughput\": {\"ReadCapacityUnits\": 10, \"WriteCapacityUnits\": 5      },\"Projection\":{\"ProjectionType\":\"ALL\"}}}]"
 ```
--------
+
 - Pesquisar item por artista
 
 ```
@@ -94,6 +93,15 @@ aws dynamodb query \
     --table-name Music \
     --key-condition-expression "Artist = :artist" \
     --expression-attribute-values  '{":artist":{"S":"Iron Maiden"}}'
+```
+
+- Pesquisar item por nota
+
+```
+aws dynamodb query \
+    --table-name Music \
+    --key-condition-expression "Rating = :rating" \
+    --expression-attribute-values  '{":rating":{"N":10}}'
 ```
 - Pesquisar item por artista e título da música
 
